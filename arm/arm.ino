@@ -1,10 +1,9 @@
 double sgn(double x);
 #include <Servo.h>
 
-float y[4]= {0, 0, 0, 0};
+float y[4]= {0, 0, 0, 0}; //lspb variables
 float tdjk= 200;  //time interval microseconds
 float acc= 0.002; //acceleration,
-
 double ti[4]= {0, 0, 0, 0};
 double tjkk[4]= {0, 0, 0, 0};
 double tdijo[4]= {tdjk, tdjk, tdjk, tdjk};
@@ -25,7 +24,7 @@ int p[4]= {0, 0, 0, 0};
 unsigned long t[4]= {0, 0, 0, 0};
 unsigned long td[4]= {0, 0, 0, 0};
 int n=0;
-float qu[4]= {0, 0, 0, 0};
+float qu[4]= {0, 0, 0, 0}; //counters
 float qv[4]= {0, 0, 0, 0};
 float qw[4]= {0, 0, 0, 0};
 float qc[4]= {0, 0, 0, 0};
@@ -43,12 +42,13 @@ int z0= 0; //z offset for target
 Servo j1,j2,j3,j4,j5,j6,g6;
 int d1=90, d4=121, d6=0, l0=28, l2=150; //dh parameters
 float q1, q2, q3, q6; 
-float u(float t06[12][4][4]); 
-float v(float t06[12][4][4]);
+float u(float t06[12][4][4]); //inverse kinematics functions
+float v(float t06[12][4][4]); 
 float w(float t06[12][4][4]);
 float g(float t06[12][4][4]);
+void parabolicBlend( int q1, int q2); //linear segment with parabolic blend function
 
-float t07[][4][4]={{{1,0,0,0},{0,0,-1,170},{0,1,0,240},{0,0,0,1}},
+float t07[][4][4]={{{1,0,0,0},{0,0,-1,170},{0,1,0,240},{0,0,0,1}}, //target sequence
                       {{1,0,0,0},{0,0,-1,170},{0,1,0,240},{0,0,0,1}},
                       {{1,0,0,120},{0,0,-1,170},{0,1,0,240},{0,0,0,1}},
                       {{1,0,0,120},{0,0,-1,170},{0,1,0,240},{0,0,0,1}},
@@ -369,25 +369,10 @@ void parabolicBlend( int q1, int q2)
       }
     }
 
-    j1.write(y[0]);
+    j1.write(y[0]); //run servos
     j2.write(y[1]); 
     j3.write(y[2]);
     j6.write(y[3]+20);
-
-    /*Serial.print(y[0]);
-    Serial.print(" ");
-    Serial.print(y[1]);
-    Serial.print(" ");
-    Serial.print(y[2]);
-    Serial.print(" ");
-    Serial.print(y[3]);
-    Serial.print(" ");
-    Serial.print(0);
-    Serial.print(" ");
-    Serial.print(180);
-    Serial.print(" ");
-    Serial.println(" ");*/
-  
   }
 
   for(n= 0; n< 4; n++)
